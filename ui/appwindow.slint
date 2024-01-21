@@ -1,17 +1,49 @@
-import { Button, VerticalBox } from "std-widgets.slint";
+import { Button, VerticalBox, CheckBox, Slider } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
-    in-out property<int> counter: 42;
-    callback request-increase-value();
+    in-out property<int> interval: 10;
+    callback start-reminding();
+    // width: 300px;
+    // height: 250px;
+    title: "Water Break Configurator";
+    icon: @image-url("/home/klug/Documents/projects/water-break/assets/bottles.svg");
+
     VerticalBox {
-        Text {
-            text: "Counter: \{root.counter}";
+        Text { 
+            text: "Water Break Configurator"; 
+            // width: parent.width;
+            height: 30px;
+            vertical-alignment: top;
+            horizontal-alignment: center;
         }
-        Button {
-            text: "Increase value";
-            clicked => {
-                root.request-increase-value();
+        Text {
+            text: "Set reminder interval for breaks in minutes.";
+            height: 20px;
+        }
+        
+        Slider {
+            min-width: 20px;
+            max-width: 50px;
+            value: 10;
+            padding-left: 10px;
+            padding-right: 10px;
+            maximum: 70;
+            changed => {
+                root.interval = self.value;
             }
         }
+
+        Text {
+            text: "Reminding every: \{root.interval}";
+            height: 20px;
+        }
+
+        Button {
+            text: "Start";
+            clicked => {
+                start-reminding();
+            }
+        }
+        
     }
 }
