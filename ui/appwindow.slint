@@ -1,10 +1,12 @@
 import { Button, VerticalBox, CheckBox, Slider } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
-    in-out property<int> interval: 42;
-    callback request-chkbox-value();
+    in-out property<int> interval: 10;
+    callback start-reminding();
     // width: 300px;
     // height: 250px;
+    title: "Water Break Configurator";
+    icon: @image-url("/home/klug/Documents/projects/water-break/assets/bottles.svg");
 
     VerticalBox {
         Text { 
@@ -36,11 +38,10 @@ export component AppWindow inherits Window {
             height: 20px;
         }
 
-        CheckBox {
-            text: "Enabled";
-            checked: false;
-            toggled => {
-                root.request-chkbox-value();
+        Button {
+            text: "Start";
+            clicked => {
+                start-reminding();
             }
         }
         
